@@ -25,8 +25,13 @@ channels:
 
 # The packages to install to the environment
 dependencies:
+  - python = 3.8
   - conda-build
   - git
+  - gcc
+  - gxx
+  - clang=10.0.0
+  - llvm-tools=10.0.0
   - llvmdev ==10.0.0
   - numpy
   - pytest
@@ -36,3 +41,5 @@ dependencies:
   - make
   - scipy
   - pillow
+  - decorator
+  - attrs
