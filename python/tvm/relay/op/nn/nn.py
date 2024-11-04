@@ -75,6 +75,48 @@ def mcuconv2d(
         out_dtype,
     )
 
+def mcuconv2davg(
+    data,
+    weight,
+    bias,
+    zero_x, zero_y, effective_scale, order, 
+    strides=(1, 1),
+    padding=(0, 0),
+    dilation=(1, 1),
+    groups=1,
+    channels=None,
+    kernel_size=None,
+    data_layout="NCHW",
+    kernel_layout="OIHW",
+    out_layout="",
+    out_dtype="",
+):
+    if isinstance(kernel_size, int):
+        kernel_size = (kernel_size, kernel_size)
+    if isinstance(strides, int):
+        strides = (strides, strides)
+    if isinstance(dilation, int):
+        dilation = (dilation, dilation)
+    # TODO enforce 4-way padding in topi/nn/conv2d after #4644 merged
+    # convert 2-way padding to 4-way padding
+    padding = get_pad_tuple2d(padding)
+    return _make.mcuconv2davg(
+        data,
+        weight,
+        bias,
+        zero_x, zero_y, effective_scale, order,
+        strides,
+        padding,
+        dilation,
+        groups,
+        channels,
+        kernel_size,
+        data_layout,
+        kernel_layout,
+        out_layout,
+        out_dtype,
+    )
+
 def conv1d(
     data,
     weight,
